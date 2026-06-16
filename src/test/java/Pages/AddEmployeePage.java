@@ -51,4 +51,7 @@ public class AddEmployeePage extends CommonMethods {
     @FindBy(xpath="(//div[@role='row'])[2]//div[2]")
     public WebElement searchID;
 
+    @FindBy(xpath="(//div[@role='row'])[2]//div[2]")
+    public WebElement getSearchID;
+
 }

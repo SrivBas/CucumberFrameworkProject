@@ -38,15 +38,15 @@ public class AddEmployeeSteps extends CommonMethods {
         Assert.assertTrue(addEmployeePage.personalDetailheader.isDisplayed());
     }
     @Then("employee Id should be generated automatically")
-    public void employee_id_should_be_generated_automatically() throws InterruptedException {
+    public void employee_id_should_be_generated_automatically()  {
         waitforValue(addEmployeePage.employeeId);
         String generatedEmpId=addEmployeePage.employeeId.getAttribute("value");
         empId=generatedEmpId;
-        System.out.println("Employee ID:["+empId+"]");
+        //System.out.println("Employee ID:["+empId+"]");
     }
 
     @Then("Verify the employee record from the employee list")
-    public void verify_the_employee_record_from_the_employee_list() {
+    public void verify_the_employee_record_from_the_employee_list() throws InterruptedException {
          searchEmployeeId(empId);
     }
 
@@ -57,9 +57,6 @@ public class AddEmployeeSteps extends CommonMethods {
         sendText(string2,addEmployeePage.middleName);
         sendText(string3, addEmployeePage.lastName);
 
-        /*addEmployeePage.employeeId.click();
-        addEmployeePage.employeeId.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        addEmployeePage.employeeId.sendKeys(Keys.BACK_SPACE);*/
         clear(addEmployeePage.employeeId);
         sendText(string4, addEmployeePage.employeeId);
         empId=string4;

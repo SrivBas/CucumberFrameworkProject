@@ -1,10 +1,8 @@
 package utils;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -12,7 +10,11 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.List;
 
 public class CommonMethods extends PageInitialiser{
@@ -37,7 +39,7 @@ public class CommonMethods extends PageInitialiser{
                 break;
         }
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         initilizePageObjects();
     }
     public void closeBrowser(){
@@ -77,17 +79,52 @@ public class CommonMethods extends PageInitialiser{
     }
 
 
-    public void searchEmployeeId(String empId) {
+    public void searchEmployeeId(String empId) throws InterruptedException {
         addEmployeePage.employeeList.click();
         //click(addEmployeePage.employeeId);
         sendText(empId,addEmployeePage.employeeId);
         click(addEmployeePage.search);
-        //getwait().until(ExpectedConditions.textToBePresentInElement(addEmployeePage.searchID, empId));
-        String actual=addEmployeePage.searchID.getText().trim();
-        System.out.println("actual "+actual);
+
+        getwait().until(ExpectedConditions.visibilityOf(addEmployeePage.getSearchID));
+
+        //String actual = addEmployeePage.getSearchID.getText().trim();
+        String actual=addEmployeePage.getEmployeeIdFromResult();
+        //ystem.out.println("actual "+actual);
         Assert.assertEquals(empId,actual);
 
 
+    }
+    public String getEmployeeIdFromResult() {
+        //By employeeIdResult = By.xpath("(//div[@role='row'])[2]//div[2]");
+
+        return addEmployeePage.getSearchID.getText().trim();
+    }
+
+
+
+    public byte[] takeScreenshot(String fileName){
+
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        byte[] picByte = ts.getScreenshotAs(OutputType.BYTES);
+        File sourceFile = ts.getScreenshotAs(OutputType.FILE);
+
+        try {
+            FileUtils.copyFile(sourceFile,
+                    new File(Constants.SCREENSHOT_FILEPATH +
+                            fileName+" "+
+                            getTimeStamp("yyyy-MM-dd-HH-mm-ss")+".png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return picByte;
+    }
+
+
+    public String getTimeStamp(String pattern){
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        return sdf.format(date);
     }
 
 

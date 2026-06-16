@@ -30,8 +30,8 @@ Feature: Add Employee into HRMS
 
      Examples:
        |firstname |middlename| lastname|EmployeeId|
-       | Mark      | Ms         | Anthony  | E001  |
-       | John      |            | Andre    |E002  |
+       | Mark      | Ms         | Anthony  |E005|
+       | John      |            | Andre    |E006 |
 
 
     @validate
