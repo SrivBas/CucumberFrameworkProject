@@ -94,7 +94,7 @@ public class CommonMethods extends PageInitialiser{
         sendText(empId,addEmployeePage.employeeId);
         click(addEmployeePage.search);
 
-        getwait().until(ExpectedConditions.visibilityOf(addEmployeePage.getSearchID));
+                /*getwait().until(ExpectedConditions.visibilityOf(addEmployeePage.getSearchID));*/
 
         //String actual = addEmployeePage.getSearchID.getText().trim();
         String actual=addEmployeePage.getEmployeeIdFromResult();
@@ -106,7 +106,15 @@ public class CommonMethods extends PageInitialiser{
     public String getEmployeeIdFromResult() {
         //By employeeIdResult = By.xpath("(//div[@role='row'])[2]//div[2]");
 
-        return addEmployeePage.getSearchID.getText().trim();
+        //return addEmployeePage.getSearchID.getText().trim();
+        By employeeIdResult = By.xpath("(//div[@role='row'])[2]//div[2]");
+
+        WebElement employee =
+                getwait().until(ExpectedConditions.visibilityOfElementLocated(employeeIdResult));
+
+        return employee.getText().trim();
+
+
     }
 
 
