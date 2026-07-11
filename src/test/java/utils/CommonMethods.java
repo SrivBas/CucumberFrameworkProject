@@ -25,9 +25,14 @@ public class CommonMethods extends PageInitialiser{
 
         switch (ConfigReader.read("browser")){
             case "Chrome":
-                ChromeOptions options = new ChromeOptions();
-                options.addArguments("--headless");
-                driver=new ChromeDriver(options);
+                        ChromeOptions options = new ChromeOptions();
+                        options.addArguments("--headless=new");
+                        options.addArguments("--window-size=1920,1080");
+                        options.addArguments("--disable-gpu");
+                        options.addArguments("--no-sandbox");
+                        options.addArguments("--disable-dev-shm-usage");
+                        driver = new ChromeDriver(options);
+
                 //driver=new ChromeDriver();
                 break;
 
