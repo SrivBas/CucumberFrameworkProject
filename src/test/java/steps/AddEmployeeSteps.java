@@ -35,6 +35,7 @@ public class AddEmployeeSteps extends CommonMethods {
 
     @Then("the employee should added successfully")
     public void the_employee_should_added_successfully() {
+        visible(addEmployeePage.personalDetailheader);
         Assert.assertTrue(addEmployeePage.personalDetailheader.isDisplayed());
     }
     @Then("employee Id should be generated automatically")

@@ -73,6 +73,7 @@ public class CommonMethods extends PageInitialiser{
     public void visible(WebElement element){
         getwait().until(ExpectedConditions.visibilityOf(element));
     }
+
     public void waitforValue(WebElement element){
         getwait().until(
                 ExpectedConditions.attributeToBeNotEmpty(element, "value"));
