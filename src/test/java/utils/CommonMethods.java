@@ -98,20 +98,20 @@ public class CommonMethods extends PageInitialiser{
                 /*getwait().until(ExpectedConditions.visibilityOf(addEmployeePage.getSearchID));*/
 
         //String actual = addEmployeePage.getSearchID.getText().trim();
-        String actual=addEmployeePage.getEmployeeIdFromResult();
+        String actual=addEmployeePage.getEmployeeIdFromResult(empId);
         //ystem.out.println("actual "+actual);
         Assert.assertEquals(empId,actual);
 
 
     }
-    public String getEmployeeIdFromResult() {
+    public String getEmployeeIdFromResult(String empId) {
         //By employeeIdResult = By.xpath("(//div[@role='row'])[2]//div[2]");
 
         //return addEmployeePage.getSearchID.getText().trim();
-        By employeeIdResult = By.xpath("(//div[@role='row'])[2]//div[2]");
-
+        //By employeeIdResult = By.xpath("(//div[@role='row'])[2]//div[2]");
+        By employeeIdResult = By.xpath("//div[@role='row']//div[normalize-space()='" + empId + "']");
         WebElement employee =
-                getwait().until(ExpectedConditions.visibilityOfElementLocated(employeeIdResult));
+                getwait().until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfElementLocated(employeeIdResult)));
 
         return employee.getText().trim();
 
